@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  api:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+      - redis
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/blog
+      - REDIS_HOST=redis
+      - JWT_SECRET=supersecret
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
